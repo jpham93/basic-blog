@@ -4,15 +4,19 @@ import { RouteComponentProps } from 'react-router';
 import ExploreContainer from '../components/ExploreContainer';
 import './Page.css';
 
-const Page: React.FC<RouteComponentProps<{ name: string; }>> = ({ match }) => {
+const pages: React.FC[] = [
+
+];
+
+const Page: React.FC<RouteComponentProps<{ name: string; }>> = ({match}) => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonMenuButton />
+            <IonMenuButton/>
           </IonButtons>
-          <IonTitle>{match.params.name}</IonTitle>
+          <IonTitle>{ match.params.name }</IonTitle>
         </IonToolbar>
       </IonHeader>
 
@@ -22,7 +26,7 @@ const Page: React.FC<RouteComponentProps<{ name: string; }>> = ({ match }) => {
             <IonTitle size="large">{ match.params.name }</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name={match.params.name} />
+        <ExploreContainer name={ match.params.name }/>
       </IonContent>
     </IonPage>
   );
