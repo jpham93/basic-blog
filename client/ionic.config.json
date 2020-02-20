@@ -1,5 +1,7 @@
 {
   "name": "basic-blog",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react"
 }
