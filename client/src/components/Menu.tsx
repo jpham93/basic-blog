@@ -33,8 +33,8 @@ const appPages: AppPage[] = [
     mdIcon: documentTextSharp
   },
   {
-    title: 'New',
-    url: '/page/New',
+    title: 'New Blog',
+    url: '/page/NewBlog',
     iosIcon: addCircleOutline,
     mdIcon: addCircleSharp
   },

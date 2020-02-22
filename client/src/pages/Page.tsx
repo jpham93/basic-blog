@@ -4,9 +4,6 @@ import { RouteComponentProps } from 'react-router';
 import ExploreContainer from '../components/ExploreContainer';
 import './Page.css';
 
-const pages: React.FC[] = [
-
-];
 
 const Page: React.FC<RouteComponentProps<{ name: string; }>> = ({match}) => {
   return (

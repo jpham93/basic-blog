@@ -1,6 +1,6 @@
 {
-  "appId": "com.jamespham.basicblog",
-  "appName": "Basic Blog",
+  "appId": "io.ionic.starter",
+  "appName": "basic-blog",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",

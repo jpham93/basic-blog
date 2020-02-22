@@ -1,0 +1,9 @@
+.container--max-width {
+  max-width: 768px;
+  margin: auto;
+}
+
+.item--border-round {
+  border-radius: 10px;
+  margin-top: 5px;
+}
