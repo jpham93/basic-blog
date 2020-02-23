@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { IonInput, IonTextarea, IonLabel, IonItem, IonButton } from '@ionic/react'
 import './NewBlog.css';
 
 const NewBlog: React.FC = (props) => {
   const [title, setTitle] = useState<string | number | null | undefined>('');
-  const [content, setContent] = useState<string | number | null | undefined>('');
+  const [content, setContent] = useState<string | null | undefined>('');
 
   /**
    * @TODO - map correct value inputs to setters...
    * @param e
    */
-  const handleChange = (e: React.ChangeEvent<HTMLIonInputElement>) => {
-    const {name, value} = e.target;
-    name === 'title' ? setTitle(value) : setContent(value);
+  const handleChange = (
+    e: FormEvent<HTMLIonTextareaElement | HTMLIonInputElement>
+  ) => {
+    const {name, value} = e.currentTarget;
+    let stringVal = String(value);
+    name === 'title' ? setTitle(stringVal) : setContent(stringVal);
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
@@ -41,7 +44,11 @@ const NewBlog: React.FC = (props) => {
         </IonItem>
         <IonItem class='item--border-round'>
           <IonLabel position='floating'>Content</IonLabel>
-          <IonTextarea/>
+          <IonTextarea
+            name='content'
+            value={ content }
+            onInput={ handleChange }
+          />
         </IonItem>
         <IonButton type='submit'>Submit</IonButton>
       </form>
