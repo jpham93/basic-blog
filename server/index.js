@@ -7,7 +7,7 @@ const app = require('express')(),
 ;
 
 // MIDDLEWARE
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // parsing .env file
 const { DB, DB_HOST, DB_USER, DB_PASSWORD } = env_result.parsed;
@@ -32,7 +32,21 @@ mongoose.connect(dbUrl, {
 });
 
 app.post('/blog/new', (req, res) => {
+  // Extract payload
   const { title, content } = req.body;
+
+  // Create new document in Blog collection
+  Blog.create({title, content}, (err, newBlog) => {
+
+    if (err) {
+      console.log(err, ', cannot create new blog!');
+      res.json({'error': 'Error creating new blog in the database.'});
+    } else {
+      res.json({'success': 'New blog successfully created!'});
+    }
+
+  });
+
 });
 
 app.listen(3001 || process.env.PORT, ()=> {
