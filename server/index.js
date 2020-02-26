@@ -33,6 +33,9 @@ mongoose.connect(dbUrl, {
   console.log('ERROR', err.message)
 });
 
+/**
+ * Blog POST
+ */
 app.post('/blog/new', (req, res) => {
   // Extract payload
   const { title, content } = req.body;
@@ -51,6 +54,18 @@ app.post('/blog/new', (req, res) => {
 
 });
 
-app.listen(3000 || process.env.PORT, ()=> {
+/**
+ * Blog INDEX
+ */
+app.get('/blog', (req, res) => {
+  Blog.find({}, (err, blogs) => {
+    if (err) {
+      console.log(err, ', cannot retrieve blogs from database');
+    }
+    res.json(blogs);
+  })
+});
+
+app.listen(3000 || process.env.PORT, () => {
   console.log('Server now listening');
 });
