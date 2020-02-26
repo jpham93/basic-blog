@@ -1,10 +1,16 @@
 import React, { FormEvent, useState } from 'react';
-import { IonInput, IonTextarea, IonLabel, IonItem, IonButton } from '@ionic/react'
+import { IonInput, IonTextarea, IonLabel, IonItem, IonButton, IonChip } from '@ionic/react'
 import './NewBlog.css';
+
+interface Blog {
+  title: string | null | undefined,
+  content: string | null | undefined
+}
 
 const NewBlog: React.FC = (props) => {
   const [title, setTitle] = useState<string | null | undefined>('');
   const [content, setContent] = useState<string | null | undefined>('');
+  const [submitMessage, setMessage] = useState<{ success: string | undefined, error: string | undefined } | null | undefined>(null);
 
   /**
    * Handles change events for both inputs
@@ -24,14 +30,36 @@ const NewBlog: React.FC = (props) => {
    */
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    const payload: Blog = { title, content };
 
-    //@TODO - payload
-    console.log(`Title: ${ title }\nContent: ${ content }`);
+    // POST to server
+    const newBlogEndpoint = `http://localhost:3000/blog/new`;
+    fetch(newBlogEndpoint, {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    }).then(res => res.json())
+      .then(message => {
+        setMessage(message);
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
     // reset values
     setTitle('');
     setContent('');
   };
+
+
+  let message = null;
+  if (submitMessage !== null && submitMessage) {
+    message = submitMessage.success !== undefined
+      ? <IonChip color='success' outline>{ submitMessage.success }</IonChip>
+      : <IonChip color='danger' outline>{ submitMessage.error }</IonChip>
+  }
 
   return (
     <div className='container--max-width'>
@@ -58,6 +86,7 @@ const NewBlog: React.FC = (props) => {
         </IonItem>
         <IonButton type='submit'>Submit</IonButton>
       </form>
+      { message }
     </div>
   );
 };

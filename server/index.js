@@ -2,12 +2,14 @@ const app = require('express')(),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   env_result = require('dotenv').config(),
+  cors = require('cors'),
   // MODELS
   Blog = require('./models/blog')
 ;
 
 // MIDDLEWARE
 app.use(bodyParser.json());
+app.use(cors());
 
 // parsing .env file
 const { DB, DB_HOST, DB_USER, DB_PASSWORD } = env_result.parsed;
@@ -49,6 +51,6 @@ app.post('/blog/new', (req, res) => {
 
 });
 
-app.listen(3001 || process.env.PORT, ()=> {
+app.listen(3000 || process.env.PORT, ()=> {
   console.log('Server now listening');
 });
